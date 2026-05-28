@@ -39,6 +39,8 @@ variable "resource_skus" {
     pip = string
     lb  = string
     nat_ip = string
+    vmss = string
+    ossku   = string
   })
 }
 
@@ -46,6 +48,7 @@ variable "resource_zones" {
   type = object({
     pip = list(string)
     nat_pip = list(string)
+    vmss = list(string)
 
   })
 }
@@ -86,4 +89,53 @@ variable "nat_gw" {
   type = string
   description = "The name of NAT GW"
 
+}
+
+variable "proj_vmss" {
+  type = string
+  description = "The name of VMSS"
+
+}
+
+variable "vmss_instance_count" {
+  type        = number
+  description = "The number of virtual machines in the Scale Set"
+  default     = 3
+}
+
+
+variable "os_publisher" {
+  type = string
+  description = "The name OS Publisher"
+
+}
+
+variable "os_offer" {
+  type = string
+  description = "OS Offer Type"
+}
+
+variable "os_version" {
+  type = string
+  description = "OS Version"
+}
+
+variable "os_storage" {
+  type = string
+  description = "OS Hard Disk Type"
+}
+
+variable "os_caching" {
+  type = string
+  description = "OS Disk Caching Method"
+}
+
+variable "vmss_ip" {
+  type = string
+  description = "VMSS NIC Name"
+}
+
+variable "vmipconfig" {
+  type = string
+  description = "VMSS Ip Configuration"
 }

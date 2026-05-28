@@ -12,4 +12,7 @@ crash.*.log
 
 # Terraform vars (Variables වලට දාන රහස් values තියෙන නිසා)
 *.tfvars
-*.tfvars.json
+*.tfvars.jsog
+
+# VMSS Private Key
+vmss_key.pem

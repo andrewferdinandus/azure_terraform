@@ -145,19 +145,20 @@ resource "azurerm_nat_gateway" "nat_gw" {
   idle_timeout_in_minutes = 10
   zones                   = var.resource_zones.nat_pip
 
-
+  tags = local.common_tags
 }
 
 resource "azurerm_lb_nat_rule" "ssh_nat_rule" {
   resource_group_name            = azurerm_resource_group.proj_1.name
   loadbalancer_id                = azurerm_lb.proj_lb.id
-  name                           = "SSH Access"
+  name                           = "SSH-Access"
   protocol                       = "Tcp"
   frontend_port_start            = 50000
   frontend_port_end              = 50119
   backend_port                   = 22
   backend_address_pool_id        = azurerm_lb_backend_address_pool.backend_pool.id
   frontend_ip_configuration_name = var.lb_frontend_ip
+  
 }
 
 
