@@ -36,40 +36,20 @@ resource "azurerm_network_security_group" "sec_gr_1" {
   location            = azurerm_resource_group.proj_1.location
   resource_group_name = azurerm_resource_group.proj_1.name
 
-  security_rule {
-    name                       = "allow-http"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "80"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "allow-https"
-    priority                   = 101
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "allow-ssh"
-    priority                   = 102
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
+  # Requirement: Dynamic block for NSG & Source LoadBalancer
+  dynamic "security_rule" {
+    for_each = local.nsg_rules
+    content {
+      name                       = security_rule.value.name
+      priority                   = security_rule.value.priority
+      direction                  = "Inbound"
+      access                     = "Allow"
+      protocol                   = "Tcp"
+      source_port_range          = "*"
+      destination_port_range     = security_rule.value.port
+      source_address_prefix      = "AzureLoadBalancer" # LB to backend
+      destination_address_prefix = "*"
+    }
   }
 
   tags = local.common_tags
@@ -124,6 +104,7 @@ resource "azurerm_lb_probe" "lb_probe" {
   request_path    = "/"
 }
 
+
 #Create Public IP for NAT Gateway
 resource "azurerm_public_ip" "nat_pub_ip" {
   name                = var.nat_public_ip
@@ -148,19 +129,46 @@ resource "azurerm_nat_gateway" "nat_gw" {
   tags = local.common_tags
 }
 
-resource "azurerm_lb_nat_rule" "ssh_nat_rule" {
-  resource_group_name            = azurerm_resource_group.proj_1.name
+# Load balancing rule for port 80 traffic
+resource "azurerm_lb_rule" "http_rule" {
+  name                           = "LBRule"
   loadbalancer_id                = azurerm_lb.proj_lb.id
-  name                           = "SSH-Access"
   protocol                       = "Tcp"
-  frontend_port_start            = 50000
-  frontend_port_end              = 50119
-  backend_port                   = 22
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.backend_pool.id
+  frontend_port                  = 80
+  backend_port                   = 80
   frontend_ip_configuration_name = var.lb_frontend_ip
-  
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.backend_pool.id]
+  probe_id                       = azurerm_lb_probe.lb_probe.id
 }
 
+resource "azurerm_network_security_rule" "allow_http_inbound" {
+  name                        = "Allow-HTTP-Inbound"
+  priority                    = 103
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "Internet"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.proj_1.name
+  network_security_group_name = azurerm_network_security_group.sec_gr_1.name
+}
+
+
+resource "azurerm_network_security_rule" "ssh_nat_rule_nsg" {
+  name                        = "Allow-SSH-NAT-Access"
+  priority                    = 104
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = 22
+  source_address_prefix       = "*"   
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.proj_1.name
+  network_security_group_name = azurerm_network_security_group.sec_gr_1.name
+}
 
 resource "azurerm_nat_gateway_public_ip_association" "nat_gw_assoc" {
   nat_gateway_id       = azurerm_nat_gateway.nat_gw.id
@@ -170,4 +178,33 @@ resource "azurerm_nat_gateway_public_ip_association" "nat_gw_assoc" {
 resource "azurerm_subnet_nat_gateway_association" "example" {
   subnet_id      = azurerm_subnet.priv_1.id
   nat_gateway_id = azurerm_nat_gateway.nat_gw.id
+}
+
+
+## Bastion Host Resources
+resource "azurerm_subnet" "bastion_subnet" {
+  name                 = "AzureBastionSubnet"
+  resource_group_name  = azurerm_resource_group.proj_1.name
+  virtual_network_name = azurerm_virtual_network.proj_vnet.name
+  address_prefixes     = ["10.0.250.0/27"]
+}
+
+resource "azurerm_public_ip" "bastion_pip" {
+  name                = "bastion-pip"
+  location            = azurerm_resource_group.proj_1.location
+  resource_group_name = azurerm_resource_group.proj_1.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_bastion_host" "bastion" {
+  name                = "proj-bastion"
+  location            = azurerm_resource_group.proj_1.location
+  resource_group_name = azurerm_resource_group.proj_1.name
+
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = azurerm_subnet.bastion_subnet.id
+    public_ip_address_id = azurerm_public_ip.bastion_pip.id
+  }
 }
