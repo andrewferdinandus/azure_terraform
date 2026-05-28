@@ -1,0 +1,15 @@
+# Local .terraform directories (Providers and modules)
+**/.terraform/*
+.terraform/
+
+# Terraform state files (🚨 ඉතාම රහසිගතයි)
+*.tfstate
+*.tfstate.*
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Terraform vars (Variables වලට දාන රහස් values තියෙන නිසා)
+*.tfvars
+*.tfvars.json
