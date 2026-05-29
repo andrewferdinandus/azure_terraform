@@ -159,12 +159,3 @@ output "app_federated_identity_credential_id" {
   value       = var.enable_workload_identity_keyvault_access ? azurerm_federated_identity_credential.app_keyvault[0].id : null
 }
 
-output "app_workload_namespace" {
-  description = "Namespace for the workload identity test app."
-  value       = var.app_workload_namespace
-}
-
-output "app_workload_service_account_name" {
-  description = "ServiceAccount name for the workload identity test app."
-  value       = var.app_workload_service_account_name
-}
