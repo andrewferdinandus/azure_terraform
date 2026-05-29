@@ -88,3 +88,34 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "user_node_pool_name" {
+  description = "Name of the AKS user node pool."
+  type        = string
+}
+
+variable "user_node_vm_size" {
+  description = "VM size for the user node pool."
+  type        = string
+}
+
+variable "user_node_min_count" {
+  description = "Minimum number of nodes for user node pool autoscaling."
+  type        = number
+}
+
+variable "user_node_max_count" {
+  description = "Maximum number of nodes for user node pool autoscaling."
+  type        = number
+}
+
+variable "user_node_os_disk_size_gb" {
+  description = "OS disk size in GB for user node pool nodes."
+  type        = number
+}
+
+variable "user_node_labels" {
+  description = "Labels for the user node pool."
+  type        = map(string)
+  default     = {}
+}

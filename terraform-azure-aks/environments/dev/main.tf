@@ -58,6 +58,13 @@ module "aks" {
   system_node_max_count       = var.system_node_max_count
   system_node_os_disk_size_gb = var.system_node_os_disk_size_gb
 
+  user_node_pool_name       = var.user_node_pool_name
+  user_node_vm_size         = var.user_node_vm_size
+  user_node_min_count       = var.user_node_min_count
+  user_node_max_count       = var.user_node_max_count
+  user_node_os_disk_size_gb = var.user_node_os_disk_size_gb
+  user_node_labels          = var.user_node_labels
+
   tags = var.tags
 
   depends_on = [

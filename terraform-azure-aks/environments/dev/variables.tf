@@ -85,3 +85,34 @@ variable "system_node_os_disk_size_gb" {
   description = "OS disk size for system node pool."
   type        = number
 }
+
+variable "user_node_pool_name" {
+  description = "Name of the AKS user node pool."
+  type        = string
+}
+
+variable "user_node_vm_size" {
+  description = "VM size for the AKS user node pool."
+  type        = string
+}
+
+variable "user_node_min_count" {
+  description = "Minimum node count for user node pool."
+  type        = number
+}
+
+variable "user_node_max_count" {
+  description = "Maximum node count for user node pool."
+  type        = number
+}
+
+variable "user_node_os_disk_size_gb" {
+  description = "OS disk size for user node pool."
+  type        = number
+}
+
+variable "user_node_labels" {
+  description = "Labels for the user node pool."
+  type        = map(string)
+  default     = {}
+}

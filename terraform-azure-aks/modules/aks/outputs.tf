@@ -18,3 +18,13 @@ output "kube_config_raw" {
   value       = azurerm_kubernetes_cluster.this.kube_config_raw
   sensitive   = true
 }
+
+output "user_node_pool_id" {
+  description = "User node pool ID."
+  value       = azurerm_kubernetes_cluster_node_pool.user.id
+}
+
+output "user_node_pool_name" {
+  description = "User node pool name."
+  value       = azurerm_kubernetes_cluster_node_pool.user.name
+}

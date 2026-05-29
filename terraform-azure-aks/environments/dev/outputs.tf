@@ -63,3 +63,13 @@ output "aks_cluster_fqdn" {
   description = "AKS cluster FQDN."
   value       = module.aks.fqdn
 }
+
+output "user_node_pool_id" {
+  description = "AKS user node pool ID."
+  value       = module.aks.user_node_pool_id
+}
+
+output "user_node_pool_name" {
+  description = "AKS user node pool name."
+  value       = module.aks.user_node_pool_name
+}

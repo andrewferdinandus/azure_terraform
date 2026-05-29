@@ -32,3 +32,21 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   tags = var.tags
 }
+
+resource "azurerm_kubernetes_cluster_node_pool" "user" {
+  name                  = var.user_node_pool_name
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.this.id
+  vm_size               = var.user_node_vm_size
+  mode                  = "User"
+
+  vnet_subnet_id  = var.subnet_id
+  os_disk_size_gb = var.user_node_os_disk_size_gb
+
+  auto_scaling_enabled = true
+  min_count            = var.user_node_min_count
+  max_count            = var.user_node_max_count
+
+  node_labels = var.user_node_labels
+
+  tags = var.tags
+}
