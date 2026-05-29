@@ -57,11 +57,13 @@ module "aks" {
   subnet_id    = module.network.aks_subnet_id
   identity_ids = [module.aks_identity.id]
 
-  system_node_pool_name       = var.system_node_pool_name
-  system_node_vm_size         = var.system_node_vm_size
-  system_node_min_count       = var.system_node_min_count
-  system_node_max_count       = var.system_node_max_count
-  system_node_os_disk_size_gb = var.system_node_os_disk_size_gb
+  system_node_pool_name                    = var.system_node_pool_name
+  system_node_vm_size                      = var.system_node_vm_size
+  system_node_min_count                    = var.system_node_min_count
+  system_node_max_count                    = var.system_node_max_count
+  system_node_os_disk_size_gb              = var.system_node_os_disk_size_gb
+  system_node_only_critical_addons_enabled = var.system_node_only_critical_addons_enabled
+  system_node_temporary_name_for_rotation  = var.system_node_temporary_name_for_rotation
 
   user_node_pool_name       = var.user_node_pool_name
   user_node_vm_size         = var.user_node_vm_size

@@ -22,6 +22,8 @@ resource "azurerm_kubernetes_cluster" "this" {
     auto_scaling_enabled = true
     min_count            = var.system_node_min_count
     max_count            = var.system_node_max_count
+    only_critical_addons_enabled = var.system_node_only_critical_addons_enabled
+    temporary_name_for_rotation = var.system_node_temporary_name_for_rotation
   }
 
   network_profile {

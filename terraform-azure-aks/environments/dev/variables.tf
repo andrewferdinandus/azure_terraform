@@ -162,3 +162,15 @@ variable "acr_admin_enabled" {
   type        = bool
   default     = false
 }
+
+variable "system_node_only_critical_addons_enabled" {
+  description = "Whether only critical addons can be scheduled on the system node pool."
+  type        = bool
+  default     = true
+}
+
+variable "system_node_temporary_name_for_rotation" {
+  description = "Temporary node pool name used by AKS when rotating the default system node pool."
+  type        = string
+  default     = "syspooltmp"
+}
