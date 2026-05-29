@@ -1,0 +1,34 @@
+resource "azurerm_kubernetes_cluster" "this" {
+  name                = var.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  dns_prefix          = var.dns_prefix
+
+  kubernetes_version      = var.kubernetes_version
+  private_cluster_enabled = var.private_cluster_enabled
+
+  role_based_access_control_enabled = true
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = var.identity_ids
+  }
+
+  default_node_pool {
+    name                 = var.system_node_pool_name
+    vm_size              = var.system_node_vm_size
+    vnet_subnet_id       = var.subnet_id
+    os_disk_size_gb      = var.system_node_os_disk_size_gb
+    auto_scaling_enabled = true
+    min_count            = var.system_node_min_count
+    max_count            = var.system_node_max_count
+  }
+
+  network_profile {
+    network_plugin    = var.network_plugin
+    network_policy    = var.network_policy
+    load_balancer_sku = var.load_balancer_sku
+  }
+
+  tags = var.tags
+}

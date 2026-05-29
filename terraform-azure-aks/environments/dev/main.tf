@@ -19,3 +19,48 @@ module "network" {
 
   tags = var.tags
 }
+
+module "aks_identity" {
+  source = "../../modules/managed-identity"
+
+  name                = var.aks_identity_name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
+
+  tags = var.tags
+}
+
+module "aks_network_contributor_role" {
+  source = "../../modules/role-assignments"
+
+  principal_id         = module.aks_identity.principal_id
+  scope                = module.network.vnet_id
+  role_definition_name = "Network Contributor"
+}
+
+module "aks" {
+  source = "../../modules/aks"
+
+  name                = var.aks_cluster_name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
+  dns_prefix          = var.aks_dns_prefix
+
+  kubernetes_version      = var.aks_kubernetes_version
+  private_cluster_enabled = var.aks_private_cluster_enabled
+
+  subnet_id    = module.network.aks_subnet_id
+  identity_ids = [module.aks_identity.id]
+
+  system_node_pool_name       = var.system_node_pool_name
+  system_node_vm_size         = var.system_node_vm_size
+  system_node_min_count       = var.system_node_min_count
+  system_node_max_count       = var.system_node_max_count
+  system_node_os_disk_size_gb = var.system_node_os_disk_size_gb
+
+  tags = var.tags
+
+  depends_on = [
+    module.aks_network_contributor_role
+  ]
+}
