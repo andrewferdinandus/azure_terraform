@@ -13,3 +13,18 @@ output "resource_group_id" {
   value       = module.resource_group.id
 
 }
+
+output "vnet_name" {
+  description = "Created VNet name."
+  value       = module.network.vnet_name
+}
+
+output "vnet_id" {
+  description = "Created VNet ID."
+  value       = module.network.vnet_id
+}
+
+output "aks_subnet_id" {
+  description = "Created AKS subnet ID."
+  value       = module.network.aks_subnet_id
+}
