@@ -210,3 +210,44 @@ variable "keyvault_public_network_access_enabled" {
   type        = bool
   default     = true
 }
+
+variable "aks_oidc_issuer_enabled" {
+  description = "Whether to enable AKS OIDC issuer."
+  type        = bool
+  default     = true
+}
+
+variable "aks_workload_identity_enabled" {
+  description = "Whether to enable AKS workload identity."
+  type        = bool
+  default     = true
+}
+
+variable "enable_workload_identity_keyvault_access" {
+  description = "Whether to create workload identity resources for Key Vault access."
+  type        = bool
+  default     = true
+}
+
+variable "app_workload_identity_name" {
+  description = "Name of the app User Assigned Managed Identity for Workload Identity."
+  type        = string
+}
+
+variable "app_workload_namespace" {
+  description = "Kubernetes namespace where the workload ServiceAccount will exist."
+  type        = string
+  default     = "app-secrets-demo"
+}
+
+variable "app_workload_service_account_name" {
+  description = "Kubernetes ServiceAccount name used by the workload."
+  type        = string
+  default     = "kv-reader-sa"
+}
+
+variable "app_federated_identity_credential_name" {
+  description = "Name of the federated identity credential."
+  type        = string
+  default     = "fic-kv-reader"
+}

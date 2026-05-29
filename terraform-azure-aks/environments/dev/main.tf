@@ -72,6 +72,9 @@ module "aks" {
   user_node_os_disk_size_gb = var.user_node_os_disk_size_gb
   user_node_labels          = var.user_node_labels
 
+  oidc_issuer_enabled       = var.aks_oidc_issuer_enabled
+  workload_identity_enabled = var.aks_workload_identity_enabled
+
   tags = var.tags
 
   depends_on = [
@@ -121,4 +124,41 @@ module "keyvault" {
   public_network_access_enabled = var.keyvault_public_network_access_enabled
 
   tags = var.tags
+}
+
+module "app_workload_identity" {
+  count  = var.enable_workload_identity_keyvault_access ? 1 : 0
+  source = "../../modules/managed-identity"
+
+  name                = var.app_workload_identity_name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
+
+  tags = var.tags
+}
+
+module "app_keyvault_secrets_user_role" {
+  count  = var.enable_workload_identity_keyvault_access && var.enable_keyvault ? 1 : 0
+  source = "../../modules/role-assignments"
+
+  principal_id         = module.app_workload_identity[0].principal_id
+  scope                = module.keyvault.id
+  role_definition_name = "Key Vault Secrets User"
+}
+
+resource "azurerm_federated_identity_credential" "app_keyvault" {
+  count = var.enable_workload_identity_keyvault_access ? 1 : 0
+
+  name                = var.app_federated_identity_credential_name
+  resource_group_name = module.resource_group.name
+  parent_id           = module.app_workload_identity[0].id
+
+  audience = ["api://AzureADTokenExchange"]
+  issuer   = module.aks.oidc_issuer_url
+  subject  = "system:serviceaccount:${var.app_workload_namespace}:${var.app_workload_service_account_name}"
+
+  depends_on = [
+    module.aks,
+    module.app_workload_identity
+  ]
 }

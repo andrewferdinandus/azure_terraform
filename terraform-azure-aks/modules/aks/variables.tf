@@ -131,3 +131,15 @@ variable "system_node_temporary_name_for_rotation" {
   type        = string
   default     = "syspooltmp"
 }
+
+variable "oidc_issuer_enabled" {
+  description = "Whether to enable OIDC issuer for AKS."
+  type        = bool
+  default     = true
+}
+
+variable "workload_identity_enabled" {
+  description = "Whether to enable workload identity for AKS."
+  type        = bool
+  default     = true
+}

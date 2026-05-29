@@ -7,6 +7,9 @@ resource "azurerm_kubernetes_cluster" "this" {
   kubernetes_version      = var.kubernetes_version
   private_cluster_enabled = var.private_cluster_enabled
 
+  oidc_issuer_enabled       = var.oidc_issuer_enabled
+  workload_identity_enabled = var.workload_identity_enabled
+
   role_based_access_control_enabled = true
 
   identity {

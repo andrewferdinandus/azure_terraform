@@ -128,3 +128,43 @@ output "keyvault_uri" {
   description = "Key Vault URI."
   value       = module.keyvault.vault_uri
 }
+
+output "aks_oidc_issuer_url" {
+  description = "AKS OIDC issuer URL."
+  value       = module.aks.oidc_issuer_url
+}
+
+output "app_workload_identity_id" {
+  description = "App workload identity resource ID."
+  value       = var.enable_workload_identity_keyvault_access ? module.app_workload_identity[0].id : null
+}
+
+output "app_workload_identity_client_id" {
+  description = "App workload identity client ID."
+  value       = var.enable_workload_identity_keyvault_access ? module.app_workload_identity[0].client_id : null
+}
+
+output "app_workload_identity_principal_id" {
+  description = "App workload identity principal ID."
+  value       = var.enable_workload_identity_keyvault_access ? module.app_workload_identity[0].principal_id : null
+}
+
+output "app_keyvault_secrets_user_role_assignment_id" {
+  description = "Key Vault Secrets User role assignment ID for app workload identity."
+  value       = var.enable_workload_identity_keyvault_access && var.enable_keyvault ? module.app_keyvault_secrets_user_role[0].id : null
+}
+
+output "app_federated_identity_credential_id" {
+  description = "Federated identity credential ID for app workload identity."
+  value       = var.enable_workload_identity_keyvault_access ? azurerm_federated_identity_credential.app_keyvault[0].id : null
+}
+
+output "app_workload_namespace" {
+  description = "Namespace for the workload identity test app."
+  value       = var.app_workload_namespace
+}
+
+output "app_workload_service_account_name" {
+  description = "ServiceAccount name for the workload identity test app."
+  value       = var.app_workload_service_account_name
+}
