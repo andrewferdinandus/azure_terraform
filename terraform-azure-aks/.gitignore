@@ -1,0 +1,25 @@
+# Terraform local files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform plan files
+*.tfplan
+plan.out
+
+# Terraform lock can be committed
+# .terraform.lock.hcl
+
+# Local variable files - be careful
+*.auto.tfvars
+*.auto.tfvars.json
+
+# OS / editor
+.DS_Store
+.vscode/
