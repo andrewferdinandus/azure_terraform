@@ -251,3 +251,4 @@ variable "app_federated_identity_credential_name" {
   type        = string
   default     = "fic-kv-reader"
 }
+
