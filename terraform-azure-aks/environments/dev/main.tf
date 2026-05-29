@@ -105,3 +105,20 @@ module "aks_acr_pull_role" {
     module.acr
   ]
 }
+
+module "keyvault" {
+  source = "../../modules/keyvault"
+
+  enabled             = var.enable_keyvault
+  name                = var.keyvault_name
+  location            = module.resource_group.location
+  resource_group_name = module.resource_group.name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+
+  sku_name                      = var.keyvault_sku_name
+  soft_delete_retention_days    = var.keyvault_soft_delete_retention_days
+  purge_protection_enabled      = var.keyvault_purge_protection_enabled
+  public_network_access_enabled = var.keyvault_public_network_access_enabled
+
+  tags = var.tags
+}

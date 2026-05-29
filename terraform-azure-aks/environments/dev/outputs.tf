@@ -113,3 +113,18 @@ output "aks_acr_pull_role_assignment_id" {
   description = "AcrPull role assignment ID for AKS kubelet identity."
   value       = var.enable_acr ? module.aks_acr_pull_role[0].id : null
 }
+
+output "keyvault_id" {
+  description = "Key Vault ID."
+  value       = module.keyvault.id
+}
+
+output "keyvault_name" {
+  description = "Key Vault name."
+  value       = module.keyvault.name
+}
+
+output "keyvault_uri" {
+  description = "Key Vault URI."
+  value       = module.keyvault.vault_uri
+}

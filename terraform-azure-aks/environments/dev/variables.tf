@@ -174,3 +174,39 @@ variable "system_node_temporary_name_for_rotation" {
   type        = string
   default     = "syspooltmp"
 }
+
+variable "enable_keyvault" {
+  description = "Whether to create Azure Key Vault."
+  type        = bool
+  default     = false
+}
+
+variable "keyvault_name" {
+  description = "Name of Azure Key Vault. Must be globally unique."
+  type        = string
+  default     = null
+}
+
+variable "keyvault_sku_name" {
+  description = "Key Vault SKU."
+  type        = string
+  default     = "standard"
+}
+
+variable "keyvault_soft_delete_retention_days" {
+  description = "Key Vault soft delete retention days."
+  type        = number
+  default     = 7
+}
+
+variable "keyvault_purge_protection_enabled" {
+  description = "Whether Key Vault purge protection is enabled."
+  type        = bool
+  default     = false
+}
+
+variable "keyvault_public_network_access_enabled" {
+  description = "Whether Key Vault public network access is enabled."
+  type        = bool
+  default     = true
+}
