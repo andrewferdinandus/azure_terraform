@@ -89,3 +89,17 @@ module "acr" {
 
   tags = var.tags
 }
+
+module "aks_acr_pull_role" {
+  count  = var.enable_acr ? 1 : 0
+  source = "../../modules/role-assignments"
+
+  principal_id         = module.aks.kubelet_identity_object_id
+  scope                = module.acr.id
+  role_definition_name = "AcrPull"
+
+  depends_on = [
+    module.aks,
+    module.acr
+  ]
+}

@@ -28,3 +28,13 @@ output "user_node_pool_name" {
   description = "User node pool name."
   value       = azurerm_kubernetes_cluster_node_pool.user.name
 }
+
+output "kubelet_identity_object_id" {
+  description = "AKS kubelet identity object ID used for AcrPull role assignment."
+  value       = azurerm_kubernetes_cluster.this.kubelet_identity[0].object_id
+}
+
+output "kubelet_identity_client_id" {
+  description = "AKS kubelet identity client ID."
+  value       = azurerm_kubernetes_cluster.this.kubelet_identity[0].client_id
+}

@@ -98,3 +98,18 @@ output "acr_login_server" {
   description = "ACR login server."
   value       = module.acr.login_server
 }
+
+output "aks_kubelet_identity_object_id" {
+  description = "AKS kubelet identity object ID."
+  value       = module.aks.kubelet_identity_object_id
+}
+
+output "aks_kubelet_identity_client_id" {
+  description = "AKS kubelet identity client ID."
+  value       = module.aks.kubelet_identity_client_id
+}
+
+output "aks_acr_pull_role_assignment_id" {
+  description = "AcrPull role assignment ID for AKS kubelet identity."
+  value       = var.enable_acr ? module.aks_acr_pull_role[0].id : null
+}
