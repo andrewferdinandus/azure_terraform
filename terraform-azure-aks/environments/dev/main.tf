@@ -17,6 +17,11 @@ module "network" {
   aks_subnet_name             = var.aks_subnet_name
   aks_subnet_address_prefixes = var.aks_subnet_address_prefixes
 
+  enable_nat_gateway                  = var.enable_nat_gateway
+  nat_gateway_name                    = var.nat_gateway_name
+  nat_gateway_public_ip_name          = var.nat_gateway_public_ip_name
+  nat_gateway_idle_timeout_in_minutes = var.nat_gateway_idle_timeout_in_minutes
+
   tags = var.tags
 }
 

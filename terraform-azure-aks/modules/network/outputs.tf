@@ -17,3 +17,18 @@ output "aks_subnet_name" {
   description = "AKS subnet name."
   value       = azurerm_subnet.aks.name
 }
+
+output "nat_gateway_id" {
+  description = "NAT Gateway ID."
+  value       = var.enable_nat_gateway ? azurerm_nat_gateway.this[0].id : null
+}
+
+output "nat_gateway_public_ip_id" {
+  description = "NAT Gateway Public IP ID."
+  value       = var.enable_nat_gateway ? azurerm_public_ip.nat[0].id : null
+}
+
+output "nat_gateway_public_ip_address" {
+  description = "NAT Gateway outbound public IP address."
+  value       = var.enable_nat_gateway ? azurerm_public_ip.nat[0].ip_address : null
+}

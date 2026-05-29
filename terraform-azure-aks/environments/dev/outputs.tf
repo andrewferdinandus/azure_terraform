@@ -73,3 +73,13 @@ output "user_node_pool_name" {
   description = "AKS user node pool name."
   value       = module.aks.user_node_pool_name
 }
+
+output "nat_gateway_id" {
+  description = "NAT Gateway ID."
+  value       = module.network.nat_gateway_id
+}
+
+output "nat_gateway_public_ip_address" {
+  description = "NAT Gateway outbound public IP address."
+  value       = module.network.nat_gateway_public_ip_address
+}
