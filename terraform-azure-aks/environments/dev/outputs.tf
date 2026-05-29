@@ -83,3 +83,18 @@ output "nat_gateway_public_ip_address" {
   description = "NAT Gateway outbound public IP address."
   value       = module.network.nat_gateway_public_ip_address
 }
+
+output "acr_id" {
+  description = "ACR ID."
+  value       = module.acr.id
+}
+
+output "acr_name" {
+  description = "ACR name."
+  value       = module.acr.name
+}
+
+output "acr_login_server" {
+  description = "ACR login server."
+  value       = module.acr.login_server
+}

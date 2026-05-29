@@ -138,3 +138,27 @@ variable "nat_gateway_idle_timeout_in_minutes" {
   type        = number
   default     = 4
 }
+
+variable "enable_acr" {
+  description = "Whether to create Azure Container Registry."
+  type        = bool
+  default     = false
+}
+
+variable "acr_name" {
+  description = "Name of Azure Container Registry. Must be globally unique."
+  type        = string
+  default     = null
+}
+
+variable "acr_sku" {
+  description = "ACR SKU."
+  type        = string
+  default     = "Basic"
+}
+
+variable "acr_admin_enabled" {
+  description = "Whether ACR admin user is enabled."
+  type        = bool
+  default     = false
+}
