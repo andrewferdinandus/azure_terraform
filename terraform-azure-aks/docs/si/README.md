@@ -16,19 +16,20 @@
 ## කියවන්න හොඳ පිළිවෙල
 
 1. [Quick Start - ඉක්මන් ආරම්භය](quick-start.md)
-2. [අවශ්‍ය දේවල්](prerequisites.md)
-3. [Architecture එක](architecture.md)
-4. [Terraform Backend](terraform-backend.md)
-5. [AKS Platform](aks-platform.md)
-6. [ACR සහ Image Registries](acr-and-registries.md)
-7. [Gateway API](gateway-api.md)
-8. [Key Vault සහ Workload Identity](key-vault-and-workload-identity.md)
-9. [Monitoring සහ Observability](monitoring-and-observability.md)
-10. [CI/CD Labs](cicd-labs.md)
-11. [GitOps Labs](gitops-labs.md)
-12. [Troubleshooting](troubleshooting.md)
-13. [Known Issues](known-issues.md)
-14. [Roadmap](roadmap.md)
+2. [Configuration Guide - settings වෙනස් කිරීම](configuration.md)
+3. [අවශ්‍ය දේවල්](prerequisites.md)
+4. [Architecture එක](architecture.md)
+5. [Terraform Backend](terraform-backend.md)
+6. [AKS Platform](aks-platform.md)
+7. [ACR සහ Image Registries](acr-and-registries.md)
+8. [Gateway API](gateway-api.md)
+9. [Key Vault සහ Workload Identity](key-vault-and-workload-identity.md)
+10. [Monitoring සහ Observability](monitoring-and-observability.md)
+11. [CI/CD Labs](cicd-labs.md)
+12. [GitOps Labs](gitops-labs.md)
+13. [Troubleshooting](troubleshooting.md)
+14. [Known Issues](known-issues.md)
+15. [Roadmap](roadmap.md)
 
 ## වෙනත් languages
 
