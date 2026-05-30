@@ -59,6 +59,30 @@ Copy it to:
 
     .github/workflows/build-deploy-aks.yaml
 
+## Pipeline jobs
+
+GitHub Actions uses jobs instead of the word stages.
+
+This lab separates the workflow into four jobs:
+
+    validate
+      |
+      v
+    build-and-push
+      |
+      v
+    deploy
+      |
+      v
+    verify
+
+Why separate jobs?
+
+- Easier to understand the CI/CD flow
+- Easier to see where a pipeline failed
+- Closer to real-world pipeline design
+- Better for learning than putting everything into one job
+
 ## Required GitHub secrets
 
 For this learning setup, configure these GitHub repository secrets:
