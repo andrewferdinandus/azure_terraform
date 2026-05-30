@@ -15,12 +15,13 @@ Practice building, pushing, deploying, observing, and securing applications on A
 ## Current practitioner flow
 
 1. GitHub Actions to AKS
-2. GitLab CI/CD to AKS
-3. Azure DevOps to AKS
-4. Jenkins to AKS
-5. Key Vault and Workload Identity
-6. Monitoring Basics
-7. OpenTelemetry App
+2. GitHub Actions DevSecOps Checks
+3. GitLab CI/CD to AKS
+4. Azure DevOps to AKS
+5. Jenkins to AKS
+6. Key Vault and Workload Identity
+7. Monitoring Basics
+8. OpenTelemetry App
 
 ## Lab 01 - GitHub Actions to AKS
 
@@ -32,61 +33,81 @@ Goal:
 
 Use GitHub Actions to build a container image, push it to a registry, and deploy it to AKS.
 
-## Lab 02 - GitLab CI/CD to AKS
+## Lab 02 - GitHub Actions DevSecOps Checks
 
 Folder:
 
-    02-gitlab-ci-to-aks
+    02-github-actions-devsecops
+
+Goal:
+
+Add security checks to a GitHub Actions workflow without requiring cloud credentials or paid security accounts.
+
+What you learn:
+
+- Dockerfile scanning
+- Kubernetes manifest scanning
+- Filesystem scanning
+- Local container image scanning
+- Security gates before deployment
+- Why DevSecOps belongs in CI/CD
+- Why action pinning matters
+
+## Lab 03 - GitLab CI/CD to AKS
+
+Folder:
+
+    03-gitlab-ci-to-aks
 
 Goal:
 
 Use GitLab CI/CD to build, push, and deploy an application to AKS.
 
-## Lab 03 - Azure DevOps to AKS
+## Lab 04 - Azure DevOps to AKS
 
 Folder:
 
-    03-azure-devops-to-aks
+    04-azure-devops-to-aks
 
 Goal:
 
 Use Azure DevOps Pipelines to build, push, and deploy to AKS.
 
-## Lab 04 - Jenkins to AKS
+## Lab 05 - Jenkins to AKS
 
 Folder:
 
-    04-jenkins-to-aks
+    05-jenkins-to-aks
 
 Goal:
 
 Use Jenkins to build and deploy an application to AKS.
 
-## Lab 05 - Key Vault and Workload Identity
+## Lab 06 - Key Vault and Workload Identity
 
 Folder:
 
-    05-key-vault-workload-identity
+    06-key-vault-workload-identity
 
 Goal:
 
 Use AKS Workload Identity to let an application read a secret from Azure Key Vault.
 
-## Lab 06 - Monitoring Basics
+## Lab 07 - Monitoring Basics
 
 Folder:
 
-    06-monitoring-basics
+    07-monitoring-basics
 
 Goal:
 
 Use Prometheus and Grafana to observe cluster and workload metrics.
 
-## Lab 07 - OpenTelemetry App
+## Lab 08 - OpenTelemetry App
 
 Folder:
 
-    07-opentelemetry-app
+    08-opentelemetry-app
 
 Goal:
 
