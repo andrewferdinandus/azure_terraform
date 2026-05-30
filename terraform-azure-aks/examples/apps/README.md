@@ -31,3 +31,16 @@ You are not limited to these sample applications.
 After completing the examples, replace the sample app with your own application, Dockerfile, image, manifests, and deployment strategy.
 
 This platform is app-agnostic.
+
+## Real-world sample app
+
+A real-world 3-tier Node.js sample app can be used for advanced AKS practice:
+
+    3-tier-nodeapp/
+
+External app repository:
+
+    https://github.com/andrewferdinandus/3-tier-nodeapp
+
+This app can be adapted for CI/CD, DevSecOps, GitOps, monitoring, and multi-environment promotion labs.
+
