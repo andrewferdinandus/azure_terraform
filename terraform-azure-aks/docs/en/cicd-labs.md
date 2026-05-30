@@ -11,6 +11,14 @@ The current hands-on lab order is maintained in:
 
 This document explains CI/CD concepts and learning goals. The exact lab sequence should be updated in the labs index first.
 
+## Lab order source of truth
+
+The current hands-on lab order is maintained in:
+
+    ../../labs/README.md
+
+This document explains CI/CD concepts and learning goals. The exact lab sequence should be updated in the labs index first.
+
 ## Purpose
 
 The CI/CD labs are designed to help users understand how applications are built, pushed to a container registry, and deployed to AKS.
