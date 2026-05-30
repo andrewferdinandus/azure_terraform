@@ -72,26 +72,31 @@ Shared Gateway:
 
 This lab builds on the concepts from Lab 01.
 
-## Lab 03 - Deploy an image from ACR
+## Lab 03 - Deploy an image from a container registry
 
 Folder:
 
-    03-acr-image
+    03-registry-image
 
 Goal:
 
-Deploy a container image from Azure Container Registry.
+Deploy a container image from ACR or another container registry.
 
 What you learn:
 
-- Azure Container Registry
-- ACR login server
+- Container image references
 - Image tags
-- AcrPull permission
-- AKS pulling private images from ACR
+- ACR image pull flow
+- External registry image pull flow
+- Public registry vs private registry
+- imagePullSecret basics
 - ImagePullBackOff troubleshooting basics
 
-This lab assumes ACR is enabled in the platform.
+Supported paths:
+
+- ACR enabled: use Azure Container Registry and AcrPull
+- ACR disabled: use Docker Hub, GHCR, GitLab Container Registry, or another registry
+- Private external registry: use imagePullSecret
 
 ## Lab 04 - Use persistent storage with PVCs
 
