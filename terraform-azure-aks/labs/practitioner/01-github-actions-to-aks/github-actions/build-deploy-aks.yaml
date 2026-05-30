@@ -35,14 +35,14 @@ jobs:
         run: |
           grep -q "IMAGE_PLACEHOLDER" terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/deployment.yaml
 
-  build-and-push:
+  build_push:
     name: Build and push image
     runs-on: ubuntu-latest
     needs:
       - validate
 
     outputs:
-      image: ${{ steps.image.outputs.image }}
+      image: ${{ steps.set_image.outputs.image }}
 
     steps:
       - name: Checkout repository
@@ -56,24 +56,24 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Set image name
-        id: image
+        id: set_image
         run: |
           IMAGE="${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
           echo "image=${IMAGE}" >> "$GITHUB_OUTPUT"
-          echo "Image: ${IMAGE}"
+          echo "Image=${IMAGE}"
 
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/app
           push: true
-          tags: ${{ steps.image.outputs.image }}
+          tags: ${{ steps.set_image.outputs.image }}
 
   deploy:
     name: Deploy to AKS
     runs-on: ubuntu-latest
     needs:
-      - build-and-push
+      - build_push
 
     steps:
       - name: Checkout repository
@@ -99,7 +99,14 @@ jobs:
 
       - name: Deploy manifests
         run: |
-          IMAGE="${{ needs.build-and-push.outputs.image }}"
+          IMAGE="${{ needs.build_push.outputs.image }}"
+
+          if [ -z "$IMAGE" ]; then
+            echo "ERROR: Image output from build_push job is empty."
+            exit 1
+          fi
+
+          echo "Deploying image: $IMAGE"
 
           kubectl apply -f terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/namespace.yaml
 
