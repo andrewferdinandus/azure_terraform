@@ -109,6 +109,51 @@ The workflow should:
 - Scan the image
 - Fail if critical or high image vulnerabilities are found
 
+## Example scan result
+
+It is normal for the image scan to report vulnerabilities in the base image.
+
+Example result:
+
+    Total: 31 vulnerabilities
+    HIGH: 29
+    CRITICAL: 2
+
+This does not mean the lab is broken.
+
+It means the scanner found known vulnerabilities in the image layers, usually from the base operating system packages.
+
+In a real DevSecOps workflow, you would review the findings and decide what to do next.
+
+Possible actions:
+
+- Use a newer base image
+- Use a smaller base image
+- Rebuild after upstream patches are available
+- Change the base image family
+- Document accepted risk
+- Fail the pipeline only for selected severity levels
+- Use strict security gates for production branches
+
+## Trivy notices
+
+Trivy may print notices such as:
+
+    A newer Trivy version is available
+    VEX notice
+
+These are informational.
+
+They do not always mean the workflow failed.
+
+Focus first on:
+
+- vulnerability severity
+- whether a fix is available
+- whether the affected package is actually used
+- whether this is a learning lab or production deployment
+
+
 ## What to do if the image scan fails
 
 Read the vulnerability output.
