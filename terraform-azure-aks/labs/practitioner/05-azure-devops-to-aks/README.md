@@ -1,6 +1,6 @@
 # Practitioner Lab 05 - Azure DevOps to AKS
 
-This lab shows how to use Azure DevOps Pipelines to build a backend application image, push it to Azure Container Registry, and deploy it to AKS.
+This lab shows how to use Azure DevOps Pipelines to build backend and frontend application images, push them to Azure Container Registry, and deploy a 3-tier application to AKS.
 
 This lab uses the 3-tier Node.js sample app as a more realistic application example.
 
@@ -21,14 +21,13 @@ Sample app repository:
 
 ## Lab scope
 
-This lab deploys:
+This lab deploys a full 3-tier application:
 
-- MySQL
+- MySQL database
 - Node.js backend API
+- React frontend served by NGINX
 
-It does not deploy the frontend yet.
-
-A future lab can extend this into a full 3-tier AKS deployment.
+The frontend uses an NGINX reverse proxy so browser requests to `/api` and `/health` are routed to the backend service inside the cluster.
 
 ## App source
 
@@ -103,8 +102,14 @@ For production, use least privilege.
     backend/Dockerfile
       Dockerfile used to build the backend image
 
+    frontend/Dockerfile
+      Dockerfile used to build the React frontend image
+
+    frontend/nginx.conf
+      NGINX reverse proxy configuration for frontend-to-backend traffic
+
     k8s/
-      Kubernetes manifests for MySQL and backend
+      Kubernetes manifests for MySQL, backend, and frontend
 
     azure-pipelines/azure-pipelines.yml
       Azure DevOps pipeline template
@@ -114,8 +119,15 @@ For production, use least privilege.
 Copy these into the root of the 3-tier app repository:
 
     backend/Dockerfile
+    frontend/Dockerfile
+    frontend/nginx.conf
     k8s/
     azure-pipelines.yml
+
+Also update the frontend app to use relative backend paths:
+
+    const BACKEND_URL = '/api';
+    fetch('/health');
 
 The app repository should have:
 
@@ -134,6 +146,8 @@ The app repository should have:
       mysql-service.yaml
       backend-deployment.yaml
       backend-service.yaml
+      frontend-deployment.yaml
+      frontend-service.yaml
 
     azure-pipelines.yml
 
@@ -158,13 +172,15 @@ The pipeline:
 
 1. Validates required files
 2. Builds the backend Docker image
-3. Pushes the image to ACR
-4. Logs in to Azure
-5. Gets AKS credentials
-6. Installs kubectl
-7. Deploys MySQL resources
-8. Deploys backend resources
-9. Verifies rollouts
+3. Builds the frontend Docker image
+4. Pushes both images to ACR
+5. Logs in to Azure
+6. Gets AKS credentials
+7. Installs kubectl
+8. Deploys MySQL resources
+9. Deploys backend resources
+10. Deploys frontend resources
+11. Verifies rollouts
 
 ## Local validation
 
@@ -197,14 +213,19 @@ From your local machine:
     kubectl get svc -n practitioner-azure-devops
     kubectl rollout status deployment/mysql -n practitioner-azure-devops
     kubectl rollout status deployment/node-backend -n practitioner-azure-devops
+    kubectl rollout status deployment/node-frontend -n practitioner-azure-devops
 
-Port-forward backend service:
+Port-forward frontend service:
 
-    kubectl port-forward svc/node-backend -n practitioner-azure-devops 8086:80
+    kubectl port-forward svc/node-frontend -n practitioner-azure-devops 8087:80
 
-Test health:
+Test health through the frontend proxy:
 
-    curl http://localhost:8086/health
+    curl http://localhost:8087/health
+
+Test tasks API through the frontend proxy:
+
+    curl http://localhost:8087/api/tasks
 
 Expected:
 
@@ -262,6 +283,11 @@ Optional ACR cleanup:
     az acr repository delete \
       --name <acr-name> \
       --repository node-backend \
+      --yes
+
+    az acr repository delete \
+      --name <acr-name> \
+      --repository node-frontend \
       --yes
 
 ## Security cleanup
