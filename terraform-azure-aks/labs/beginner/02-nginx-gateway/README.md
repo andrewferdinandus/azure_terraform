@@ -1,4 +1,4 @@
-# Beginner Lab 01 - Deploy Public NGINX with Gateway API
+# Beginner Lab 02 - Expose NGINX with Gateway API
 
 This lab shows how to deploy a simple public Docker Hub image to AKS and expose it using Gateway API.
 
@@ -43,13 +43,13 @@ Check:
 
 From the repository root, apply the namespace first:
 
-    kubectl apply -f terraform-azure-aks/labs/beginner/01-public-nginx-gateway/manifests/namespace.yaml
+    kubectl apply -f terraform-azure-aks/labs/beginner/02-nginx-gateway/manifests/namespace.yaml
 
 Then apply the application resources:
 
-    kubectl apply -f terraform-azure-aks/labs/beginner/01-public-nginx-gateway/manifests/deployment.yaml
-    kubectl apply -f terraform-azure-aks/labs/beginner/01-public-nginx-gateway/manifests/service.yaml
-    kubectl apply -f terraform-azure-aks/labs/beginner/01-public-nginx-gateway/manifests/httproute.yaml
+    kubectl apply -f terraform-azure-aks/labs/beginner/02-nginx-gateway/manifests/deployment.yaml
+    kubectl apply -f terraform-azure-aks/labs/beginner/02-nginx-gateway/manifests/service.yaml
+    kubectl apply -f terraform-azure-aks/labs/beginner/02-nginx-gateway/manifests/httproute.yaml
 
 Why apply the namespace first?
 
@@ -116,7 +116,7 @@ Common issues:
 
 Delete the lab resources:
 
-    kubectl delete -f terraform-azure-aks/labs/beginner/01-public-nginx-gateway/manifests/
+    kubectl delete -f terraform-azure-aks/labs/beginner/02-nginx-gateway/manifests/
 
 This removes only the lab app.
 
