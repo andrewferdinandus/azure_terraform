@@ -41,9 +41,6 @@ jobs:
     needs:
       - validate
 
-    outputs:
-      image: ${{ steps.set_image.outputs.image }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -55,19 +52,18 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Set image name
-        id: set_image
+      - name: Show image tag
         run: |
-          IMAGE="${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
-          echo "image=${IMAGE}" >> "$GITHUB_OUTPUT"
-          echo "Image=${IMAGE}"
+          echo "Image will be pushed with commit SHA tag."
+          echo "Image name: ${{ env.IMAGE_NAME }}"
+          echo "Registry: ${{ secrets.REGISTRY_LOGIN_SERVER }}"
 
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/app
           push: true
-          tags: ${{ steps.set_image.outputs.image }}
+          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
   deploy:
     name: Deploy to AKS
@@ -99,14 +95,14 @@ jobs:
 
       - name: Deploy manifests
         run: |
-          IMAGE="${{ needs.build_push.outputs.image }}"
+          IMAGE="${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
 
           if [ -z "$IMAGE" ]; then
-            echo "ERROR: Image output from build_push job is empty."
+            echo "ERROR: Image value is empty."
             exit 1
           fi
 
-          echo "Deploying image: $IMAGE"
+          echo "Deploying image with commit SHA tag."
 
           kubectl apply -f terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/namespace.yaml
 
