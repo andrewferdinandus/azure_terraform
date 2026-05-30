@@ -1,4 +1,4 @@
-# Local .terraform directories (Providers and modules)
+g Local .terraform directories (Providers and modules)
 **/.terraform/*
 .terraform/
 
@@ -14,5 +14,8 @@ crash.*.log
 *.tfvars
 *.tfvars.jsog
 
-# VMSS Private Key
+# Local backend config
+backend.tf
+
+# VMSS Private Keyi
 vmss_key.pem
