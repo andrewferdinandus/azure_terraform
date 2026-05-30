@@ -13,6 +13,15 @@ This project helps learners and professionals practice:
 - Monitoring with Prometheus, Grafana, and OpenTelemetry
 - Multi-environment dev / qa / prod patterns
 
+
+## Hands-on labs
+
+The current hands-on lab order is maintained in:
+
+    ../../labs/README.md
+
+The documentation below explains the platform concepts. The labs folder contains the step-by-step practice flow.
+
 ## Recommended reading order
 
 1. [Quick Start](quick-start.md)

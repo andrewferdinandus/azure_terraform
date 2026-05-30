@@ -2,6 +2,15 @@
 
 මෙම document එකෙන් AKS DevOps Practice Platform එකේ CI/CD learning path එක පැහැදිලි කරනවා.
 
+
+## Current lab order
+
+Current hands-on lab order එක maintain කරන්නේ මෙතන:
+
+    ../../labs/README.md
+
+මෙම document එක CI/CD concepts සහ learning goals පැහැදිලි කරනවා. Exact lab sequence එක labs index එකේ update කරන්න.
+
 ## Purpose
 
 CI/CD labs වල goal එක usersලාට applications build කරලා, container registry එකකට push කරලා, AKS එකට deploy කරන workflow එක තේරුම් ගන්න උදව් කිරීම.

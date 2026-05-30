@@ -2,6 +2,15 @@
 
 This folder contains CI/CD pipeline examples for deploying applications to AKS.
 
+
+## Relationship with labs
+
+The current CI/CD lab order is maintained in:
+
+    ../../labs/README.md
+
+This folder contains reusable CI/CD example files. The labs folder contains the guided learning flow.
+
 ## Supported CI/CD tools
 
 Planned examples:

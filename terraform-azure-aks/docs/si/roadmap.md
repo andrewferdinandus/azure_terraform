@@ -4,6 +4,15 @@
 
 මෙම project එකේ goal එක learners, practitioners, සහ professionals සඳහා reusable AKS DevOps Practice Platform එකක් build කිරීම.
 
+
+## Lab order source of truth
+
+Current hands-on lab order එක maintain කරන්නේ මෙතන:
+
+    ../../labs/README.md
+
+මෙම roadmap එක project phases සහ direction පැහැදිලි කරනවා. Full lab sequence එක අවශ්‍ය නැත්නම් මෙතන duplicate කරන්න එපා.
+
 ## Phase 1: Core AKS platform
 
 Status: Complete

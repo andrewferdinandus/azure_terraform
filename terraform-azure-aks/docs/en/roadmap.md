@@ -4,6 +4,15 @@ This roadmap explains the current project status and planned future work.
 
 The goal of this project is to build a reusable AKS DevOps Practice Platform for learners, practitioners, and professionals.
 
+
+## Lab order source of truth
+
+The current hands-on lab order is maintained in:
+
+    ../../labs/README.md
+
+This roadmap describes project phases and direction. Do not duplicate the full lab sequence here unless necessary.
+
 ## Phase 1: Core AKS platform
 
 Status: Complete

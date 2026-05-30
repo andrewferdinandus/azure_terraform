@@ -13,6 +13,15 @@
 - Prometheus, Grafana, OpenTelemetry monitoring
 - dev / qa / prod multi-environment patterns
 
+
+## Hands-on labs
+
+Current hands-on lab order එක maintain කරන්නේ මෙතන:
+
+    ../../labs/README.md
+
+මෙම documentation වලින් platform concepts පැහැදිලි කරනවා. Step-by-step practice flow එක labs folder එකේ තියෙනවා.
+
 ## කියවන්න හොඳ පිළිවෙල
 
 1. [Quick Start - ඉක්මන් ආරම්භය](quick-start.md)

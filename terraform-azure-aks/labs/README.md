@@ -1,11 +1,103 @@
 # Labs
 
-This folder contains hands-on labs for learning and practicing DevOps workflows on the AKS platform.
+This folder contains hands-on labs for the AKS DevOps Practice Platform.
 
-## Tracks
+The labs are organized by learning level:
 
-- `beginner/` — Kubernetes, AKS, ACR, Gateway API, and basic deployments
-- `practitioner/` — CI/CD, Key Vault, HPA, monitoring, and app delivery workflows
-- `professional/` — GitOps, promotion, troubleshooting, release strategies, and platform engineering patterns
+- Beginner
+- Practitioner
+- Professional
 
-Detailed English and Sinhala lab guides will be added during the documentation phase.
+This file is the source of truth for the current lab order.
+
+If the lab flow changes in the future, update this file first.
+
+## Learning path
+
+Recommended order:
+
+    Beginner Labs
+          |
+          v
+    Practitioner Labs
+          |
+          v
+    Professional Labs
+
+## Beginner Labs
+
+Beginner labs focus on Kubernetes and AKS basics.
+
+Current beginner flow:
+
+1. Deploy Public NGINX Image
+2. Expose NGINX with Gateway API
+3. Deploy Image from a Container Registry
+4. Persistent Storage with PVC
+5. Basic Kubernetes Troubleshooting
+
+Folders:
+
+    beginner/01-public-nginx
+    beginner/02-nginx-gateway
+    beginner/03-registry-image
+    beginner/04-persistent-storage-pvc
+    beginner/05-basic-troubleshooting
+
+## Practitioner Labs
+
+Practitioner labs focus on real DevOps workflows.
+
+Current practitioner flow:
+
+1. GitHub Actions to AKS
+2. GitLab CI/CD to AKS
+3. Azure DevOps to AKS
+4. Jenkins to AKS
+5. Key Vault and Workload Identity
+6. Monitoring Basics
+7. OpenTelemetry App
+
+Planned folders:
+
+    practitioner/01-github-actions-to-aks
+    practitioner/02-gitlab-ci-to-aks
+    practitioner/03-azure-devops-to-aks
+    practitioner/04-jenkins-to-aks
+    practitioner/05-key-vault-workload-identity
+    practitioner/06-monitoring-basics
+    practitioner/07-opentelemetry-app
+
+## Professional Labs
+
+Professional labs focus on production-style platform engineering patterns.
+
+Current professional flow:
+
+1. Argo CD GitOps
+2. Flux GitOps
+3. dev to qa to prod promotion
+4. Blue/green deployment
+5. Canary deployment
+6. Incident troubleshooting
+7. Security hardening
+
+Planned folders:
+
+    professional/01-argocd-gitops
+    professional/02-flux-gitops
+    professional/03-dev-qa-prod-promotion
+    professional/04-blue-green-deployment
+    professional/05-canary-deployment
+    professional/06-incident-troubleshooting
+    professional/07-security-hardening
+
+## Learning-first approach
+
+These labs are learning examples.
+
+They are not strict production templates.
+
+After completing a lab, replace the sample app, registry, image, manifests, and workflow with your own application and release process.
+
+This platform is app-agnostic and registry-agnostic.
