@@ -1,31 +1,49 @@
 # GitOps Platform Add-ons
 
-This folder contains optional GitOps add-on configuration.
+This folder contains optional GitOps tool installation notes and configuration.
 
-GitOps tools are not installed by the core Terraform platform.
+## Purpose
 
-They are optional because users may choose:
+Argo CD and Flux are optional platform add-ons.
+
+They are not installed by the core Terraform platform.
+
+## Why optional?
+
+The core Terraform platform creates:
+
+- Azure infrastructure
+- AKS cluster
+- ACR
+- Key Vault
+- Managed identities
+- Role assignments
+
+GitOps tools run on top of AKS.
+
+Not every learner or project needs GitOps from the beginning.
+
+## Available options
 
 - Argo CD
 - Flux
-- No GitOps tool yet
 
-## Current folders
+## Folder structure
 
-- argocd
-- flux
+    platform-addons/gitops/
+      argocd/
+      flux/
 
 ## Recommended learning approach
 
-Start with the core AKS platform first.
-
-Then install one GitOps tool as a lab:
-
-1. Install Argo CD or Flux
-2. Connect the Git repository
-3. Deploy a sample app from Git
-4. Change the manifest in Git
-5. Watch the GitOps controller sync the change
+1. Create the AKS platform with Terraform
+2. Verify nodes, Gateway, Key Vault, and monitoring
+3. Learn basic Kubernetes deployments
+4. Choose Argo CD or Flux
+5. Install the GitOps tool as an optional lab
+6. Connect the tool to this repository
+7. Deploy from gitops/apps/dev
+8. Practice dev to qa to prod promotion
 
 ## Safe access
 
@@ -33,4 +51,10 @@ Keep GitOps dashboards internal by default.
 
 Use port-forward for learning access.
 
-Do not expose Argo CD or Flux dashboards publicly without TLS, authentication, and access controls.
+Do not expose GitOps dashboards publicly without:
+
+- HTTPS
+- Authentication
+- Access controls
+- SSO or OAuth
+- Network restrictions
