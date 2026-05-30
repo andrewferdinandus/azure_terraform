@@ -39,6 +39,7 @@ deploy:
     - az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_CLIENT_SECRET" --tenant "$AZURE_TENANT_ID"
     - az account set --subscription "$AZURE_SUBSCRIPTION_ID"
     - az aks get-credentials --resource-group "$AZURE_RESOURCE_GROUP" --name "$AKS_CLUSTER_NAME" --overwrite-existing
+    - az aks install-cli
     - IMAGE="$REGISTRY_LOGIN_SERVER/$IMAGE_NAME:$CI_COMMIT_SHA"
     - kubectl apply -f k8s/namespace.yaml
     - sed "s|IMAGE_PLACEHOLDER|$IMAGE|g" k8s/deployment.yaml | kubectl apply -f -
