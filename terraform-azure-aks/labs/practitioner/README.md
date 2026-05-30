@@ -17,11 +17,12 @@ Practice building, pushing, deploying, observing, and securing applications on A
 1. GitHub Actions to AKS
 2. GitHub Actions DevSecOps Checks
 3. GitLab CI/CD to AKS
-4. Azure DevOps to AKS
-5. Jenkins to AKS
-6. Key Vault and Workload Identity
-7. Monitoring Basics
-8. OpenTelemetry App
+4. GitLab CI/CD DevSecOps Checks
+5. Azure DevOps to AKS
+6. Jenkins to AKS
+7. Key Vault and Workload Identity
+8. Monitoring Basics
+9. OpenTelemetry App
 
 ## Lab 01 - GitHub Actions to AKS
 
@@ -43,16 +44,6 @@ Goal:
 
 Add security checks to a GitHub Actions workflow without requiring cloud credentials or paid security accounts.
 
-What you learn:
-
-- Dockerfile scanning
-- Kubernetes manifest scanning
-- Filesystem scanning
-- Local container image scanning
-- Security gates before deployment
-- Why DevSecOps belongs in CI/CD
-- Why action pinning matters
-
 ## Lab 03 - GitLab CI/CD to AKS
 
 Folder:
@@ -63,51 +54,70 @@ Goal:
 
 Use GitLab CI/CD to build, push, and deploy an application to AKS.
 
-## Lab 04 - Azure DevOps to AKS
+## Lab 04 - GitLab CI/CD DevSecOps Checks
 
 Folder:
 
-    04-azure-devops-to-aks
+    04-gitlab-ci-devsecops
+
+Goal:
+
+Add security checks to a GitLab CI/CD workflow without requiring cloud credentials or paid security accounts.
+
+What you learn:
+
+- GitLab CI/CD security stages
+- Dockerfile scanning
+- Kubernetes manifest scanning
+- Local container image scanning
+- Security checks before deployment
+- Why DevSecOps belongs in CI/CD
+
+## Lab 05 - Azure DevOps to AKS
+
+Folder:
+
+    05-azure-devops-to-aks
 
 Goal:
 
 Use Azure DevOps Pipelines to build, push, and deploy to AKS.
 
-## Lab 05 - Jenkins to AKS
+## Lab 06 - Jenkins to AKS
 
 Folder:
 
-    05-jenkins-to-aks
+    06-jenkins-to-aks
 
 Goal:
 
 Use Jenkins to build and deploy an application to AKS.
 
-## Lab 06 - Key Vault and Workload Identity
+## Lab 07 - Key Vault and Workload Identity
 
 Folder:
 
-    06-key-vault-workload-identity
+    07-key-vault-workload-identity
 
 Goal:
 
 Use AKS Workload Identity to let an application read a secret from Azure Key Vault.
 
-## Lab 07 - Monitoring Basics
+## Lab 08 - Monitoring Basics
 
 Folder:
 
-    07-monitoring-basics
+    08-monitoring-basics
 
 Goal:
 
 Use Prometheus and Grafana to observe cluster and workload metrics.
 
-## Lab 08 - OpenTelemetry App
+## Lab 09 - OpenTelemetry App
 
 Folder:
 
-    08-opentelemetry-app
+    09-opentelemetry-app
 
 Goal:
 

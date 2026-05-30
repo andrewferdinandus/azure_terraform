@@ -53,22 +53,24 @@ Current practitioner flow:
 1. GitHub Actions to AKS
 2. GitHub Actions DevSecOps Checks
 3. GitLab CI/CD to AKS
-4. Azure DevOps to AKS
-5. Jenkins to AKS
-6. Key Vault and Workload Identity
-7. Monitoring Basics
-8. OpenTelemetry App
+4. GitLab CI/CD DevSecOps Checks
+5. Azure DevOps to AKS
+6. Jenkins to AKS
+7. Key Vault and Workload Identity
+8. Monitoring Basics
+9. OpenTelemetry App
 
 Planned folders:
 
     practitioner/01-github-actions-to-aks
     practitioner/02-github-actions-devsecops
     practitioner/03-gitlab-ci-to-aks
-    practitioner/04-azure-devops-to-aks
-    practitioner/05-jenkins-to-aks
-    practitioner/06-key-vault-workload-identity
-    practitioner/07-monitoring-basics
-    practitioner/08-opentelemetry-app
+    practitioner/04-gitlab-ci-devsecops
+    practitioner/05-azure-devops-to-aks
+    practitioner/06-jenkins-to-aks
+    practitioner/07-key-vault-workload-identity
+    practitioner/08-monitoring-basics
+    practitioner/09-opentelemetry-app
 
 ## Professional Labs
 
