@@ -120,60 +120,36 @@ Expected page:
 
 ## Troubleshooting
 
-### Pod issue
-
-Pods බලන්න:
+App එක access වෙන්නේ නැත්නම්, මුලින් pod එක Running ද බලන්න:
 
     kubectl get pods -n beginner-nginx
-
-Pod details බලන්න:
-
     kubectl describe pod -n beginner-nginx <pod-name>
 
-Possible reasons:
-
-- Image pull issue
-- Node scheduling issue
-- Wrong node selector
-- Resource issue
-
-### Service endpoint issue
-
-Service එක backend pod එකකට point කරනවද බලන්න:
+Service endpoints check කරන්න:
 
     kubectl get endpoints -n beginner-nginx
 
-Expected:
+Endpoints empty නම් Service selector එක Pod labels match කරන්නේ නැති වෙන්න පුළුවන්.
 
-    nginx service එකට endpoint IP එකක් තියෙන්න ඕන.
-
-Endpoints empty නම් Service selector සහ Pod labels match වෙනවද බලන්න.
-
-### HTTPRoute issue
-
-HTTPRoute details බලන්න:
+HTTPRoute check කරන්න:
 
     kubectl describe httproute nginx-route -n beginner-nginx
 
-Check කරන්න:
+Common issues:
 
-- ParentRef Gateway එක හරිද
-- Namespace එක හරිද
-- Service name එක හරිද
-- Service port එක හරිද
+- Pod is not Running
+- Service selector does not match pod labels
+- HTTPRoute is not attached to the Gateway
+- Gateway has no external address yet
+- Wrong backend service name or port
 
-HTTPRoute accepted නැත්නම් Gateway API route attach වෙලා නැති වෙන්න පුළුවන්.
+මෙම commands වලින් pod, service endpoint, සහ route attachment status check කරලා issue එක හොයාගන්න පුළුවන්.
 
 ## Cleanup
 
 Lab resources delete කරන්න:
 
     kubectl delete -f terraform-azure-aks/labs/beginner/02-nginx-gateway/manifests/
-
-Verify:
-
-    kubectl get ns beginner-nginx
-    kubectl get httproute -n beginner-nginx
 
 Namespace not found හෝ resources not found නම් cleanup complete.
 
