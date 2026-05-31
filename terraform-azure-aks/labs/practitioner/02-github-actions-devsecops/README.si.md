@@ -72,7 +72,7 @@ Lab files structure එක:
 
 Workflow template එක තියෙන්නේ:
 
-    github-actions/devsecops-checks.yaml
+    labs/practitioner/02-github-actions-devsecops/github-actions/devsecops-checks.yaml
 
 GitHub repo root එකේ copy කරන්න:
 
@@ -100,6 +100,10 @@ Workflow file එක GitHub repo එකට push කළාම GitHub Actions run 
       |
       v
     summary
+
+Simple flow එක:
+
+    validate -> scan files -> scan config -> build image -> scan image
 
 Job meaning:
 
