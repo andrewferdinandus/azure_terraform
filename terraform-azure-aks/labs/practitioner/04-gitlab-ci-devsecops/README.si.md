@@ -4,7 +4,13 @@
 
 මෙය scan-only lab එකක්. ඒ කියන්නේ මෙම lab එක AKS deploy කරන්නේ නැහැ, registry push කරන්නේ නැහැ, Azure login වෙන්නේ නැහැ.
 
-මෙම lab එකේ simple flow එක:
+මෙය Lab 03 replace කරන්නේ නැහැ.
+
+Lab 03 teaches:
+
+    validate -> build_push -> deploy -> verify
+
+This lab teaches:
 
     validate -> scan_config -> build_image -> scan_image -> summary
 

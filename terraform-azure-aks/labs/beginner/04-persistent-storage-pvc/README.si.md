@@ -170,10 +170,6 @@ Common issues:
 - Pod volume mount issue
 - Node scheduling issue
 
-PVC Pending නම් StorageClass තියෙනවද බලන්න:
-
-    kubectl get storageclass
-
 ## Cleanup
 
 Service delete කරන්න:

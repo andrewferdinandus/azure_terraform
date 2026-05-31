@@ -14,6 +14,17 @@
 
 Goal එක security scanning flow එක තේරුම් ගන්න එක.
 
+මෙය Lab 01 replace කරන්නේ නැහැ.
+
+Lab 01 teaches:
+
+    build -> push -> deploy -> verify
+
+This lab teaches:
+
+    validate -> scan files -> scan config -> build image -> scan image
+
+
 ## What you will learn
 
 මෙම lab එකෙන් ඔබට මේ දේවල් ඉගෙන ගන්න පුළුවන්:
@@ -100,10 +111,6 @@ Workflow file එක GitHub repo එකට push කළාම GitHub Actions run 
       |
       v
     summary
-
-Simple flow එක:
-
-    validate -> scan files -> scan config -> build image -> scan image
 
 Job meaning:
 
