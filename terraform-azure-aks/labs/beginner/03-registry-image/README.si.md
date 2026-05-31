@@ -28,13 +28,11 @@ Registry image deployment වලදී වැදගත් දේවල් දෙ
 
 AKS cluster එක Azure Container Registry එකට attach කරලා තිබේ නම්, AKS kubelet identity එකට ACR images pull කරන්න permission තියෙනවා.
 
-එවිට image reference එක මේ වගේ වෙන්න පුළුවන්:
+Example image:
 
-    <acr-login-server>/<repository>:<tag>
+    myacr.azurecr.io/demo-web:v1
 
-Example:
-
-    acraksdev001andrew.azurecr.io/demo-web:v1
+AcrPull correctly configured නම්, AKS එකට imagePullSecret නැතුව ACR එකෙන් image pull කරන්න පුළුවන්.
 
 මෙම option එක Azure AKS + ACR environments වල recommended learning path එක.
 
@@ -42,9 +40,11 @@ Example:
 
 Image එක public registry එකක තියෙනවා නම් pull secret අවශ්‍ය නැහැ.
 
-Example:
+Examples:
 
+    nginx:1.27-alpine
     docker.io/library/nginx:1.27-alpine
+    ghcr.io/example-org/example-app:v1
 
 මෙම option එක simple test cases වලට හොඳයි.
 
@@ -61,25 +61,32 @@ Example command:
       --docker-email=<email> \
       -n beginner-registry
 
-ඊට පස්සේ Deployment එකේ `imagePullSecrets` section එක use කරන්න ඕන.
+ඊට පස්සේ Deployment එකට මේක add කරන්න:
+
+    imagePullSecrets:
+      - name: registry-secret
 
 මෙම lab එකේ default manifests public image / simple registry image pattern එකට focus වෙනවා.
 
 ## Before you deploy
 
-Deployment manifest එකේ image field එක check කරන්න.
+මෙම file එක open කරන්න:
 
-Example:
+    manifests/deployment.yaml
 
+Image value එක replace කරන්න:
+
+    image: nginx:1.27-alpine
+
+අවශ්‍ය නම් ඔබගේ own registry image එකක් use කරන්න.
+
+Examples:
+
+    image: myacr.azurecr.io/demo-web:v1
     image: docker.io/myuser/demo-web:v1
+    image: ghcr.io/myorg/demo-web:v1
 
-ඔයා ACR image එකක් use කරනවා නම් image එක මේ format එකට update කරන්න:
-
-    image: <acr-login-server>/<repository>:<tag>
-
-Example:
-
-    image: acraksdev001andrew.azurecr.io/demo-web:v1
+First test එකට public NGINX image එක keep කරන්න පුළුවන්.
 
 Private external registry එකක් use කරනවා නම්, image pull secret එක create කරලා Deployment එක update කරන්න.
 
