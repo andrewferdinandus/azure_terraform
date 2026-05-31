@@ -4,6 +4,10 @@
 
 මෙය scan-only lab එකක්. ඒ කියන්නේ මෙම lab එක AKS deploy කරන්නේ නැහැ, registry push කරන්නේ නැහැ, Azure login වෙන්නේ නැහැ.
 
+මෙම lab එකේ simple flow එක:
+
+    validate -> scan_config -> build_image -> scan_image -> summary
+
 මෙම lab එකට අවශ්‍ය නැති දේවල්:
 
 - Azure credentials
