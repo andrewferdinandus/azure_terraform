@@ -34,26 +34,31 @@ Secrets code එකට commit කරන්න එපා. GitHub repository secre
 
 ## Supported registry paths
 
-මෙම lab එක registry paths කිහිපයක් support කරන pattern එකක් ලෙස හිතන්න පුළුවන්:
+මෙම lab එක registry paths කිහිපයක් support කරනවා:
 
 - Azure Container Registry
 - Docker Hub
-- Other private container registries
+- GitHub Container Registry
+- Other private registries
 
-Azure AKS learning path එකට recommended path එක:
+For ACR, `REGISTRY_LOGIN_SERVER` මේ වගේ වෙන්න පුළුවන්:
 
-    Azure Container Registry
+    myacr.azurecr.io
 
-Docker Hub example එකක් නම් registry server එක මෙහෙම වෙන්න පුළුවන්:
+For Docker Hub:
 
     docker.io
+
+For GHCR:
+
+    ghcr.io
 
 ## Folder structure
 
 Lab files structure එක:
 
     app/
-      sample app files
+      sample static web app and Dockerfile
 
     k8s/
       Kubernetes manifests
@@ -61,28 +66,32 @@ Lab files structure එක:
     github-actions/
       GitHub Actions workflow template
 
-Workflow template එක `.github/workflows/` path එකට copy කරන්න.
-
 ## Copy workflow into GitHub Actions path
 
-GitHub Actions workflow file එක repo root එකේ `.github/workflows/` folder එකට copy කරන්න.
+GitHub Actions workflows මේ path එක යටතේ තියෙන්න ඕන:
 
-Expected final path:
+    .github/workflows/
+
+මෙම lab එක workflow template එක store කරලා තියෙන්නේ:
+
+    labs/practitioner/01-github-actions-to-aks/github-actions/build-deploy-aks.yaml
+
+ඒක copy කරන්න:
 
     .github/workflows/build-deploy-aks.yaml
 
-Pipeline trigger වෙන්නේ workflow file එක GitHub repo එකේ තිබ්බම.
-
-ඔබ workflow file එක update කරලා push කළාම GitHub Actions run එකක් start වෙන්න පුළුවන්.
+Workflow file එක GitHub repo එකේ මේ path එකට copy කළාම GitHub Actions run වෙන්න පුළුවන්.
 
 ## Pipeline jobs
 
-මෙම workflow එක jobs කිහිපයකට split කරලා තියෙනවා:
+GitHub Actions වල `stages` වෙනුවට `jobs` කියන concept එක use වෙනවා.
+
+මෙම lab එක workflow එක jobs හතරකට split කරනවා:
 
     validate
       |
       v
-    build_push
+    build-and-push
       |
       v
     deploy
@@ -90,12 +99,12 @@ Pipeline trigger වෙන්නේ workflow file එක GitHub repo එකේ �
       v
     verify
 
-මෙම structure එකෙන් pipeline එක read කරන්න ලේසි වෙනවා.
+Separate jobs තියෙන්නේ ඇයි?
 
-- `validate` job එක required files තියෙනවද බලනවා
-- `build_push` job එක Docker image build කරලා registry එකට push කරනවා
-- `deploy` job එක AKS cluster එකට manifests apply කරනවා
-- `verify` job එක deployment rollout සහ pods/services check කරනවා
+- CI/CD flow එක තේරුම් ගන්න ලේසි
+- Pipeline fail වුණේ කොතැනද කියලා දකින්න ලේසි
+- Real-world pipeline design එකට closer
+- Everything one job එකකට දාන්න වඩා learning වලට හොඳයි
 
 ## Prepare Azure CI/CD variables
 
@@ -109,11 +118,9 @@ Sinhala guide:
 
     ../../shared/azure-login-and-cicd-variables.si.md
 
-මෙම shared guide එකෙන් `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET`, `REGISTRY_LOGIN_SERVER`, `REGISTRY_USERNAME`, `REGISTRY_PASSWORD` වගේ values ගන්නේ කොහොමද කියලා explain කරනවා.
-
 ## Required GitHub secrets
 
-GitHub repository secrets වලට මේ values add කරන්න:
+මෙම learning setup එකට GitHub repository secrets වලට මේ values configure කරන්න:
 
     AZURE_CLIENT_ID
     AZURE_CLIENT_SECRET
@@ -125,72 +132,70 @@ GitHub repository secrets වලට මේ values add කරන්න:
     REGISTRY_USERNAME
     REGISTRY_PASSWORD
 
-Secrets add කරන path එක:
+For ACR, `REGISTRY_LOGIN_SERVER` මේ වගේ වෙන්න පුළුවන්:
 
-    GitHub repository
-    -> Settings
-    -> Secrets and variables
-    -> Actions
-    -> New repository secret
+    myacr.azurecr.io
 
-Secret values expose කරන්න එපා.
+For Docker Hub:
+
+    docker.io
+
+For GHCR:
+
+    ghcr.io
 
 ## Image tag
 
-මෙම workflow එක image tag එකට Git commit SHA එක use කරනවා.
-
-ඒකෙන් එක් එක් pipeline run එකට unique image tag එකක් ලැබෙනවා.
+Workflow එක image build කරලා GitHub commit SHA එකෙන් tag කරනවා.
 
 Example:
 
-    <registry-login-server>/<image-name>:<git-sha>
-
-මෙම pattern එක rollback/debugging වලට useful.
+    myacr.azurecr.io/practitioner-github-actions:<commit-sha>
 
 ## Deployment method
 
-Deployment stage එක `IMAGE_PLACEHOLDER` replace කරලා actual image value එක Kubernetes Deployment manifest එකට inject කරනවා.
+Workflow එක කරන්නේ:
 
-Conceptual command flow එක:
-
-    sed "s|IMAGE_PLACEHOLDER|$IMAGE|g" k8s/deployment.yaml \
-      | kubectl apply -f -
-
-ඊට පස්සේ namespace සහ service apply කරනවා.
+1. Builds and pushes the image
+2. Gets AKS credentials
+3. Applies the namespace
+4. Replaces IMAGE_PLACEHOLDER with the new image tag
+5. Applies the Deployment
+6. Applies the Service
+7. Verifies rollout
 
 ## Local manifest test
 
-Pipeline එකට කලින් manifests locally test කරන්න පුළුවන්.
+CI/CD run කරන්න කලින් `IMAGE_PLACEHOLDER` public image එකකින් replace කරලා Kubernetes manifests locally test කරන්න පුළුවන්.
 
-Namespace apply කරන්න:
+Example:
+
+    sed "s|IMAGE_PLACEHOLDER|nginx:1.27-alpine|g" \
+      terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/deployment.yaml \
+      | kubectl apply -f -
+
+Full local test:
 
     kubectl apply -f terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/namespace.yaml
 
-Deployment manifest එක image value එකක් substitute කරලා apply කරන්න:
-
-    sed "s|IMAGE_PLACEHOLDER|<your-image>|g" terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/deployment.yaml \
+    sed "s|IMAGE_PLACEHOLDER|nginx:1.27-alpine|g" \
+      terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/deployment.yaml \
       | kubectl apply -f -
-
-Service apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/practitioner/01-github-actions-to-aks/k8s/service.yaml
 
-Pods සහ rollout verify කරන්න:
+Verify:
 
     kubectl get pods -n practitioner-github-actions
     kubectl rollout status deployment/github-actions-demo -n practitioner-github-actions
 
-Service local machine එකට port-forward කරන්න:
+Port-forward:
 
     kubectl port-forward svc/github-actions-demo -n practitioner-github-actions 8084:80
 
-Browser එකෙන් open කරන්න:
+Open:
 
     http://localhost:8084
-
-Expected:
-
-    Sample app page එක load වෙන්න ඕන.
 
 ## Cleanup
 
