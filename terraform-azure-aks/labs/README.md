@@ -12,7 +12,7 @@ This file is the source of truth for the current lab order.
 
 If the lab flow changes in the future, update this file first.
 
-For the wider project roadmap, future professional expansion, final projects, and AI track, see:
+For the wider project roadmap, planned professional continuation, final projects, and AI track, see:
 
     ../../ROADMAP.md
 
@@ -104,11 +104,13 @@ Planned folders:
     professional/06-incident-troubleshooting
     professional/07-security-hardening
 
-## Future expansion
+## Planned continuation
 
 The current Beginner, Practitioner, and Professional flows are the active learning paths.
 
-Future expansion is tracked in the project roadmap and may include:
+After the current Professional flow is complete, this project continues with stack-specific professional labs, deeper DevSecOps quality gates, and secure end-to-end final projects.
+
+Planned continuation includes:
 
 - Stack-specific professional labs for Node.js, Python FastAPI, and .NET
 - SonarQube or SonarCloud quality gates
@@ -118,15 +120,20 @@ Future expansion is tracked in the project roadmap and may include:
 - Image signing
 - Secure end-to-end final projects by application stack
 - Optional multi-language microservices capstone
-- AI-assisted DevOps and troubleshooting labs
 
-These future items should not change the current lab order unless the roadmap and this file are intentionally updated together.
+The AI-assisted DevOps and troubleshooting track is tracked separately in the project roadmap.
+
+For the full project direction, see:
+
+    ../../ROADMAP.md
 
 ## Learning-first approach
 
 These labs are learning examples.
 
-They are not strict production templates.
+The early labs are not strict production templates. They are designed to teach concepts step by step.
+
+As the learning path progresses, the labs move toward production-style patterns, DevSecOps quality gates, secure delivery, observability, and final end-to-end projects.
 
 After completing a lab, replace the sample app, registry, image, manifests, and workflow with your own application and release process.
 

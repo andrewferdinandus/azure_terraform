@@ -8,7 +8,7 @@ For the current full lab order, see:
 
     ../README.md
 
-For future professional expansion, stack-specific labs, final projects, and AI-assisted learning tracks, see:
+For the planned professional continuation, stack-specific labs, final projects, and AI-assisted learning track, see:
 
     ../../../ROADMAP.md
 
@@ -96,11 +96,11 @@ Goal:
 
 Practice security hardening patterns for AKS workloads and platform resources.
 
-## Future professional expansion
+## Planned professional continuation
 
 The current professional flow should be completed first.
 
-After that, future professional expansion may include:
+After that, the planned professional continuation includes:
 
 - Node.js production deployment
 - Python FastAPI production deployment

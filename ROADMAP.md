@@ -1,6 +1,6 @@
 # Terraform Azure AKS Learning Roadmap
 
-This roadmap defines the current learning flow and future expansion plan for this project.
+This roadmap defines the current learning flow, planned continuation, final projects, and the AI-assisted learning track for this project.
 
 The goal is to build a practical, step-by-step AKS learning path from beginner Kubernetes concepts to production-style platform delivery, DevSecOps, observability, final projects, and AI-assisted operations.
 
@@ -48,11 +48,11 @@ Current professional sequence:
 6. Incident troubleshooting
 7. Security hardening
 
-## Future professional expansion
+## Planned professional continuation
 
-After the current practitioner and professional flows are complete, this project will expand into stack-specific production deployment patterns and deeper DevSecOps quality gates.
+After the current professional flow is complete, this project continues into stack-specific production deployment patterns and deeper DevSecOps quality gates.
 
-Planned professional expansion labs:
+Planned continuation labs:
 
 - Node.js production deployment
 - Python FastAPI production deployment
@@ -161,7 +161,7 @@ Environment promotion
 Manual approvals for protected environments
 AI track
 
-The AI track will be added after the core platform, practitioner, professional, and final project paths are established.
+The AI track is tracked separately and will be added after the core platform, practitioner, professional, and final project paths are established.
 
 The purpose of the AI track is to show how AI can assist DevOps and platform engineering workflows without replacing engineering judgment.
 
