@@ -12,6 +12,10 @@ This file is the source of truth for the current lab order.
 
 If the lab flow changes in the future, update this file first.
 
+For the wider project roadmap, future professional expansion, final projects, and AI track, see:
+
+    ../../ROADMAP.md
+
 ## Learning path
 
 Recommended order:
@@ -99,6 +103,24 @@ Planned folders:
     professional/05-canary-deployment
     professional/06-incident-troubleshooting
     professional/07-security-hardening
+
+## Future expansion
+
+The current Beginner, Practitioner, and Professional flows are the active learning paths.
+
+Future expansion is tracked in the project roadmap and may include:
+
+- Stack-specific professional labs for Node.js, Python FastAPI, and .NET
+- SonarQube or SonarCloud quality gates
+- Dependency scanning
+- Secrets scanning
+- SBOM generation
+- Image signing
+- Secure end-to-end final projects by application stack
+- Optional multi-language microservices capstone
+- AI-assisted DevOps and troubleshooting labs
+
+These future items should not change the current lab order unless the roadmap and this file are intentionally updated together.
 
 ## Learning-first approach
 

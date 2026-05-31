@@ -8,6 +8,10 @@ For the current full lab order, see:
 
     ../README.md
 
+For future professional expansion, stack-specific labs, final projects, and AI-assisted learning tracks, see:
+
+    ../../../ROADMAP.md
+
 ## Track goal
 
 Practice advanced AKS platform engineering workflows and production-style patterns.
@@ -91,6 +95,26 @@ Folder:
 Goal:
 
 Practice security hardening patterns for AKS workloads and platform resources.
+
+## Future professional expansion
+
+The current professional flow should be completed first.
+
+After that, future professional expansion may include:
+
+- Node.js production deployment
+- Python FastAPI production deployment
+- .NET production deployment
+- SonarQube or SonarCloud quality gates
+- Dependency scanning
+- Secrets scanning
+- Infrastructure-as-Code security scanning
+- Kubernetes policy validation
+- SBOM generation
+- Image signing
+- Full quality gate pipeline
+
+These topics are tracked in the project roadmap and should be added after the current professional flow is complete.
 
 ## Important note
 
