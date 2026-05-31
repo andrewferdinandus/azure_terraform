@@ -107,6 +107,91 @@ to:
 
 Use strict mode carefully because public base images can contain vulnerabilities that require review, patching, or risk acceptance.
 
+## Why this lab does not use variables or secrets
+
+This lab is intentionally designed as a scan-only DevSecOps lab.
+
+It does not use Azure DevOps pipeline variables such as:
+
+    AZURE_CLIENT_ID
+    AZURE_CLIENT_SECRET
+    AZURE_TENANT_ID
+    AZURE_SUBSCRIPTION_ID
+    AZURE_RESOURCE_GROUP
+    AKS_CLUSTER_NAME
+    REGISTRY_LOGIN_SERVER
+    REGISTRY_USERNAME
+    REGISTRY_PASSWORD
+
+Those variables are required for deployment pipelines because deployment pipelines need to:
+
+- Log in to Azure
+- Push images to ACR
+- Get AKS credentials
+- Run kubectl against the cluster
+
+This DevSecOps lab does not do those actions.
+
+Instead, it only:
+
+- Validates files
+- Scans Dockerfiles and Kubernetes YAML
+- Builds container images locally on the pipeline agent
+- Scans the local container images
+- Shows a summary
+
+This keeps the lab safe and beginner-friendly.
+
+Learners can practice DevSecOps concepts without needing cloud credentials, registry access, AKS permissions, or paid security tools.
+
+## Scan-only lab vs production pipeline
+
+This lab separates security scanning from deployment so the learning goal is clear.
+
+Lab 05 answers:
+
+    How do I deploy an app to AKS with Azure DevOps?
+
+Lab 06 answers:
+
+    How do I add DevSecOps checks to Azure DevOps?
+
+In a real production pipeline, DevSecOps checks are often combined with deployment:
+
+    validate
+      |
+      v
+    scan source and configuration
+      |
+      v
+    build images
+      |
+      v
+    scan images
+      |
+      v
+    push images to registry
+      |
+      v
+    deploy to AKS
+      |
+      v
+    verify
+
+That production-style pipeline would require credentials or, preferably, Azure DevOps service connections or federated identity.
+
+For learning, this lab avoids secrets.
+
+For production, prefer:
+
+- Azure DevOps service connections
+- OIDC or federated credentials where possible
+- Least privilege permissions
+- Environment approvals
+- Secret rotation
+- Strict scan gates for protected branches
+
+
 ## Why this lab does not deploy
 
 This lab focuses on security checks.
