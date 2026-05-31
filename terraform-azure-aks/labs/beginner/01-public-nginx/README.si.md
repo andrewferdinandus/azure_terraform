@@ -70,7 +70,9 @@ Expected resources:
     deployment.apps/nginx
     service/nginx
 
-සමහර වෙලාවට folder apply කරන විට namespace create වෙලා ඉවර වෙන්න කලින් deployment/service apply වෙන්න try කරනවා නම් error එකක් එන්න පුළුවන්. එහෙම වුණොත් namespace එක වෙනම apply කරලා, පස්සේ අනිත් manifests apply කරන්න.
+සමහර වෙලාවට folder apply කරන විට namespace create වෙලා ඉවර වෙන්න කලින් deployment/service apply වෙන්න try කරනවා නම් error එකක් එන්න පුළුවන්.
+
+එහෙම වුණොත් namespace එක වෙනම apply කරලා, පස්සේ අනිත් manifests apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/01-public-nginx/manifests/namespace.yaml
     kubectl apply -f terraform-azure-aks/labs/beginner/01-public-nginx/manifests/deployment.yaml
@@ -194,4 +196,3 @@ Expected:
     Error from server (NotFound): namespaces "beginner-nginx" not found
 
 මෙම error එක cleanup එකෙන් පස්සේ normal. ඒ කියන්නේ namespace එක delete වෙලා.
-
