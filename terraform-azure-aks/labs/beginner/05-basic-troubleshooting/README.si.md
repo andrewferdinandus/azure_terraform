@@ -24,6 +24,9 @@
     broken/
       intentionally broken manifests
 
+    hints/
+      guided troubleshooting hints
+
     solutions/
       fixed manifests
 
@@ -43,11 +46,9 @@ Broken manifests වලින් error recreate කරනවා. Solutions folde
 
 ## Create namespace
 
-Troubleshooting lab namespace එක create කරන්න:
+Repository root එකෙන් namespace එක create කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/05-basic-troubleshooting/broken/namespace.yaml
-
-මෙම namespace එක තුළ scenarios තුනේ resources deploy කරනවා.
 
 ## Scenario 1 - ImagePullBackOff
 
@@ -55,40 +56,32 @@ Broken manifest එක apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/05-basic-troubleshooting/broken/01-imagepullbackoff.yaml
 
-Pod status බලන්න:
+Pods check කරන්න:
 
     kubectl get pods -n beginner-troubleshooting
 
-Expected issue:
-
-    Pod එක Running වෙන්නේ නැහැ.
-    STATUS එක ImagePullBackOff හෝ ErrImagePull වගේ පේන්න පුළුවන්.
-
-Pod details බලන්න:
+Pod inspect කරන්න:
 
     kubectl describe pod -n beginner-troubleshooting <pod-name>
 
-Look for:
+මේ questions ටික answer කරන්න try කරන්න:
 
-    Failed to pull image
-    image not found
-    pull access denied
+- Pod status එක මොකක්ද?
+- Kubernetes pull කරන්න try කරන image එක මොකක්ද?
+- Image tag එක exist වෙනවද?
+- මේක authentication problem එකක්ද, නැත්නම් image name/tag problem එකක්ද?
 
-Meaning:
+හිර වුණොත් read කරන්න:
 
-Kubernetes image එක pull කරන්න බැරි වෙලා. Common reason එක image name/tag වැරදි වීම.
+    hints/01-imagepullbackoff.md
 
-Fix apply කරන්න:
+ඔබම fix එකක් try කළාට පස්සේ compare කරන්න:
+
+    solutions/01-imagepullbackoff-fixed.yaml
+
+Fix එක attempt කළාට පස්සේ විතරක් solution apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/05-basic-troubleshooting/solutions/01-imagepullbackoff-fixed.yaml
-
-Verify:
-
-    kubectl get pods -n beginner-troubleshooting
-
-Expected:
-
-    Pod STATUS එක Running වෙන්න ඕන.
 
 ## Scenario 2 - Service selector mismatch
 
@@ -96,40 +89,36 @@ Broken manifest එක apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/05-basic-troubleshooting/broken/02-service-selector-mismatch.yaml
 
-Pods සහ Service බලන්න:
+Pods සහ service check කරන්න:
 
     kubectl get pods -n beginner-troubleshooting
     kubectl get svc -n beginner-troubleshooting
 
-Endpoints බලන්න:
+Endpoints check කරන්න:
 
     kubectl get endpoints -n beginner-troubleshooting
 
-Expected issue:
-
-    Service එක තියෙනවා.
-    Pod එක Running.
-    නමුත් Service endpoints empty.
-
-Pod labels බලන්න:
+Labels inspect කරන්න:
 
     kubectl get pods -n beginner-troubleshooting --show-labels
 
-Meaning:
+මේ questions ටික answer කරන්න try කරන්න:
 
-Service selector එක Pod labels match කරන්නේ නැහැ. Service එක traffic යවන්න backend pod එකක් හොයාගන්න බැරි වෙනවා.
+- Pod Running ද?
+- Service එකට endpoints තියෙනවද?
+- Service selector එක pod labels match කරනවද?
 
-Fix apply කරන්න:
+හිර වුණොත් read කරන්න:
+
+    hints/02-service-selector-mismatch.md
+
+ඔබම fix එකක් try කළාට පස්සේ compare කරන්න:
+
+    solutions/02-service-selector-mismatch-fixed.yaml
+
+Fix එක attempt කළාට පස්සේ විතරක් solution apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/05-basic-troubleshooting/solutions/02-service-selector-mismatch-fixed.yaml
-
-Verify:
-
-    kubectl get endpoints -n beginner-troubleshooting
-
-Expected:
-
-    selector-demo service එකට endpoint IP එකක් පේන්න ඕන.
 
 ## Scenario 3 - Wrong container port
 
@@ -137,47 +126,40 @@ Broken manifest එක apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/05-basic-troubleshooting/broken/03-wrong-container-port.yaml
 
-Pods සහ Service බලන්න:
+Pods සහ service check කරන්න:
 
     kubectl get pods -n beginner-troubleshooting
     kubectl get svc -n beginner-troubleshooting
 
-Service details බලන්න:
+Service details check කරන්න:
 
     kubectl describe svc wrong-port-demo -n beginner-troubleshooting
 
-Port-forward කරලා test කරන්න:
+Port-forward try කරන්න:
 
     kubectl port-forward svc/wrong-port-demo -n beginner-troubleshooting 8083:80
 
-Browser එකෙන් open කරන්න:
+Open කරන්න:
 
     http://localhost:8083
 
-Expected issue:
+මේ questions ටික answer කරන්න try කරන්න:
 
-    Port-forward connection error එකක් එන්න පුළුවන්.
-    Service targetPort එක container app listen කරන port එකට match වෙන්නේ නැහැ.
+- Pod Running ද?
+- Service එක correct targetPort එකට point කරනවද?
+- NGINX actually listen කරන port එක මොකක්ද?
 
-Meaning:
+හිර වුණොත් read කරන්න:
 
-Service එක traffic යවන්නේ wrong target port එකකට. Pod එක Running වුණත් app access වෙන්නේ නැහැ.
+    hints/03-wrong-container-port.md
 
-Fix apply කරන්න:
+ඔබම fix එකක් try කළාට පස්සේ compare කරන්න:
+
+    solutions/03-wrong-container-port-fixed.yaml
+
+Fix එක attempt කළාට පස්සේ විතරක් solution apply කරන්න:
 
     kubectl apply -f terraform-azure-aks/labs/beginner/05-basic-troubleshooting/solutions/03-wrong-container-port-fixed.yaml
-
-Verify:
-
-    kubectl port-forward svc/wrong-port-demo -n beginner-troubleshooting 8083:80
-
-Browser එකෙන් නැවත open කරන්න:
-
-    http://localhost:8083
-
-Expected:
-
-    App page එක load වෙන්න ඕන.
 
 ## Useful troubleshooting commands
 
@@ -212,16 +194,6 @@ Pod labels බලන්න:
 Lab namespace එක delete කරන්න:
 
     kubectl delete namespace beginner-troubleshooting
-
-Verify:
-
-    kubectl get ns beginner-troubleshooting
-
-Expected:
-
-    Error from server (NotFound): namespaces "beginner-troubleshooting" not found
-
-මෙම error එක cleanup එකෙන් පස්සේ normal.
 
 ## Important note
 
