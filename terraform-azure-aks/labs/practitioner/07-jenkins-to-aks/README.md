@@ -105,19 +105,22 @@ Files:
 
 Create a separate local test repository:
 
-    cd /Users/andrewferdinandus/projcts
+    LAB_WORKDIR="$HOME/terraform-azure-aks-labs"
+    PLATFORM_REPO="$(pwd)"
+    APP_REPO="$LAB_WORKDIR/jenkins-aks-cicd-lab"
 
-    rm -rf jenkins-aks-cicd-lab
-    mkdir -p jenkins-aks-cicd-lab
-    cd jenkins-aks-cicd-lab
+    mkdir -p "$LAB_WORKDIR"
+    rm -rf "$APP_REPO"
+    mkdir -p "$APP_REPO"
+    cd "$APP_REPO"
 
     mkdir -p app k8s
 
 Copy the lab files:
 
-    cp /Users/andrewferdinandus/projcts/azure_terraform/terraform-azure-aks/labs/practitioner/07-jenkins-to-aks/app/* app/
-    cp /Users/andrewferdinandus/projcts/azure_terraform/terraform-azure-aks/labs/practitioner/07-jenkins-to-aks/k8s/* k8s/
-    cp /Users/andrewferdinandus/projcts/azure_terraform/terraform-azure-aks/labs/practitioner/07-jenkins-to-aks/jenkins/Jenkinsfile Jenkinsfile
+    cp "$PLATFORM_REPO/terraform-azure-aks/labs/practitioner/07-jenkins-to-aks/app/"* app/
+    cp "$PLATFORM_REPO/terraform-azure-aks/labs/practitioner/07-jenkins-to-aks/k8s/"* k8s/
+    cp "$PLATFORM_REPO/terraform-azure-aks/labs/practitioner/07-jenkins-to-aks/jenkins/Jenkinsfile" Jenkinsfile
 
 Initialize Git:
 
@@ -203,7 +206,7 @@ Run Jenkins:
       -e JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true" \
       -v jenkins_home_aks_lab:/var/jenkins_home \
       -v /var/run/docker.sock:/var/run/docker.sock \
-      -v /Users/andrewferdinandus/projcts/jenkins-aks-cicd-lab:/workspace/jenkins-aks-cicd-lab \
+      -v "$APP_REPO:/workspace/jenkins-aks-cicd-lab" \
       jenkins-aks-lab:local
 
 This lab runs Jenkins as root only for learning so it can access the Docker socket.
