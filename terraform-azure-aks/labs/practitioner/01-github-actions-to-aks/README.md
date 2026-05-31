@@ -83,6 +83,18 @@ Why separate jobs?
 - Closer to real-world pipeline design
 - Better for learning than putting everything into one job
 
+## Prepare Azure CI/CD variables
+
+This lab deploys to AKS and pushes an image to a registry.
+
+Before running the workflow, prepare the required Azure and registry values using the shared guide:
+
+    ../../shared/azure-login-and-cicd-variables.md
+
+Sinhala guide:
+
+    ../../shared/azure-login-and-cicd-variables.si.md
+
 ## Required GitHub secrets
 
 For this learning setup, configure these GitHub repository secrets:

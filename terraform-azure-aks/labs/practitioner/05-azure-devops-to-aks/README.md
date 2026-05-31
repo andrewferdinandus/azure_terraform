@@ -52,6 +52,18 @@ You can use either:
 
 If you use Azure Repos as a copy of a GitHub repo, make sure the Azure Repos copy is updated when GitHub changes.
 
+## Prepare Azure CI/CD variables
+
+This lab deploys to AKS and pushes images to a registry.
+
+Before running the pipeline, prepare the required Azure and registry values using the shared guide:
+
+    ../../shared/azure-login-and-cicd-variables.md
+
+Sinhala guide:
+
+    ../../shared/azure-login-and-cicd-variables.si.md
+
 ## Required pipeline variables
 
 Add these variables in Azure DevOps:

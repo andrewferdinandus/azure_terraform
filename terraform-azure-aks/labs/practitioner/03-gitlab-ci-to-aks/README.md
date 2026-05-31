@@ -29,6 +29,18 @@ Example project:
 - Container registry such as ACR
 - GitLab CI/CD variables
 
+## Prepare Azure CI/CD variables
+
+This lab deploys to AKS and pushes an image to a registry.
+
+Before running the pipeline, prepare the required Azure and registry values using the shared guide:
+
+    ../../shared/azure-login-and-cicd-variables.md
+
+Sinhala guide:
+
+    ../../shared/azure-login-and-cicd-variables.si.md
+
 ## Required GitLab CI/CD variables
 
 Add these variables in:
